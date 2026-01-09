@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>In The Bar - Cocktail Recipes</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- HERO -->
+    <header class="hero">
+      <div class="hero__bg" aria-hidden="true"></div>
+      <div class="hero__overlay" aria-hidden="true"></div>
+
+      <div class="hero__content">
+        <div class="search-wrap">
+          <input
+            id="searchInput"
+            class="search-input"
+            type="text"
+            placeholder="검색창"
+            autocomplete="off"
+          />
+          <div class="search-help">이름, 베이스, 재료, 제조법까지 통합 검색됩니다.</div>
+        </div>
+      </div>
+
+      <button id="addBtn" class="fab" aria-label="레시피 추가" title="레시피 등록">
+        <span class="fab__plus">+</span>
+      </button>
+    </header>
+
+    <!-- LIST -->
+    <main class="container">
+      <div class="list-header">
+        <div>
+          <h1 class="title">저장된 칵테일 레시피</h1>
+          <p class="meta">
+            총 <span id="totalCount">0</span>개 · 검색 결과 <span id="filteredCount">0</span>개
+          </p>
+        </div>
+
+        <button id="toTopBtn" class="btn btn--ghost">맨 위로</button>
+      </div>
+
+      <section id="recipes" class="grid"></section>
+
+      <div id="emptyState" class="empty hidden">
+        <div class="empty__title">검색 결과가 없어요</div>
+        <div class="empty__desc">다른 키워드로 검색하거나 레시피를 추가해보세요.</div>
+        <button id="emptyAddBtn" class="btn btn--primary">+ 레시피 등록</button>
+      </div>
+    </main>
+
+    <!-- MODAL -->
+    <div id="modalRoot" class="modal hidden" aria-hidden="true">
+      <div id="modalBackdrop" class="modal__backdrop"></div>
+
+      <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal__head">
+          <div>
+            <h2 id="modalTitle" class="modal__title">칵테일 레시피 등록</h2>
+            <p class="modal__subtitle">기본은 이름만 필수. 나머지는 나중에 수정해도 돼요.</p>
+          </div>
+          <button id="closeBtn" class="icon-btn" aria-label="닫기">✕</button>
+        </div>
+
+        <form id="recipeForm" class="form">
+          <label class="field">
+            <div class="field__label">칵테일 이름 (필수)</div>
+            <input id="nameInput" class="field__input" type="text" placeholder="예: 블루 라군" />
+          </label>
+
+          <div class="row">
+            <label class="field">
+              <div class="field__label">베이스(주종)</div>
+              <input id="baseInput" class="field__input" type="text" placeholder="예: 보드카" />
+            </label>
+
+            <label class="field">
+  <div class="field__label">이미지 파일 (선택)</div>
+  <input id="imageFileInput" class="field__input" type="file" accept="image/*" />
+  <div class="hint">권장: 800px 이하 / 300KB 이하 (많이 저장하면 용량 제한에 걸릴 수 있어요)</div>
+</label>
+
+
+          <label class="field">
+            <div class="field__label">재료 (줄바꿈 가능)</div>
+            <textarea
+              id="ingredientsInput"
+              class="field__textarea"
+              placeholder="예: 보드카 45ml&#10;블루 큐라소 15ml&#10;레몬에이드"
+            ></textarea>
+          </label>
+
+          <label class="field">
+            <div class="field__label">제조법 (줄바꿈 가능)</div>
+            <textarea
+              id="stepsInput"
+              class="field__textarea"
+              placeholder="예: 얼음을 채운 글라스에 재료를 붓고&#10;가볍게 저어 마신다"
+            ></textarea>
+          </label>
+
+          <div class="actions">
+            <button id="resetBtn" type="button" class="btn btn--ghost">입력 초기화</button>
+
+            <div class="actions__right">
+              <button id="cancelBtn" type="button" class="btn btn--ghost">취소</button>
+              <button type="submit" class="btn btn--primary">저장</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

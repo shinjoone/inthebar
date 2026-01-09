@@ -1,0 +1,416 @@
+:root{
+  --bg: #000;
+  --panel: #0a2c3a;
+  --panel2: #0b0f14;
+  --text: #fff;
+  --muted: #a1a1aa;
+  --border: rgba(255,255,255,0.10);
+  --orange: #f97316;
+  --orange2: #fb923c;
+  --yellow: #fde047;
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", Arial, sans-serif;
+}
+
+.hero{
+  position:relative;
+  height: 360px;
+  overflow:hidden;
+}
+@media (min-width: 768px){
+  .hero{ height: 440px; }
+}
+@media (min-width: 1024px){
+  .hero{ height: 520px; }
+}
+
+.hero__bg{
+  position:absolute; inset:0;
+  background-image: url("./Bartender.jpg");
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.02);
+}
+.hero__overlay{
+  position:absolute; inset:0;
+  background: rgba(0,0,0,0.55);
+}
+.hero__content{
+  position:relative;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding: 0 16px;
+}
+
+.search-wrap{ width: min(900px, 100%); }
+.search-input{
+  width:100%;
+  padding: 16px 14px;
+  text-align:center;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.2);
+  outline:none;
+  background: rgba(255,255,255,0.95);
+  color:#111827;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+}
+.search-input:focus{
+  border-color: rgba(249,115,22,0.8);
+  box-shadow: 0 0 0 3px rgba(249,115,22,0.25), 0 10px 30px rgba(0,0,0,0.45);
+}
+.search-help{
+  margin-top: 10px;
+  text-align:center;
+  font-size: 13px;
+  color: rgba(255,255,255,0.75);
+}
+
+/* Floating + button */
+.fab{
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  width: 64px;
+  height: 64px;
+  background: var(--orange);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.55);
+  outline: none;
+  z-index: 40;
+}
+.fab:hover{ background: var(--orange2); }
+.fab:active{ transform: scale(0.98); }
+.fab__plus{
+  display:block;
+  font-size: 40px;
+  line-height: 64px;
+  color: white;
+  font-weight: 800;
+}
+@media (min-width: 768px){
+  .fab{ width: 80px; height: 80px; right: 24px; bottom: 24px; }
+  .fab__plus{ font-size: 52px; line-height: 80px; }
+}
+
+/* Container */
+.container{
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 16px 80px;
+}
+@media (min-width: 768px){
+  .container{ padding: 40px 24px 80px; }
+}
+
+.list-header{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.title{
+  margin:0;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+}
+.meta{
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+.meta span{ color: rgba(255,255,255,0.85); }
+
+/* Buttons */
+.btn{
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(12,12,12,0.5);
+  color: rgba(255,255,255,0.9);
+  padding: 9px 12px;
+  border-radius: 8px;
+  cursor:pointer;
+}
+.btn:hover{ background: rgba(255,255,255,0.08); }
+.btn--primary{
+  background: var(--orange);
+  border-color: transparent;
+  font-weight: 700;
+}
+.btn--primary:hover{ background: var(--orange2); }
+.btn--ghost{
+  background: rgba(20,20,20,0.55);
+}
+
+/* Grid of recipe cards */
+.grid{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+@media (min-width: 768px){
+  .grid{ grid-template-columns: repeat(2, 1fr); gap: 22px; }
+}
+@media (min-width: 1024px){
+  .grid{ grid-template-columns: repeat(3, 1fr); gap: 26px; }
+}
+
+/* ===== 세로 카드 스타일 (추가/덮어쓰기) ===== */
+
+.card{
+  background: #000; /* 배경과 동일 */
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 12px 26px rgba(0,0,0,0.55);
+}
+
+.card__body{
+  padding: 18px;
+  display: block;      /* 가로 flex 제거 */
+}
+
+/* 사진 영역: 위에 크게 */
+.thumb{
+  width: 100%;
+  height: 220px;       /* 원하는 높이로 조절 */
+  background: #0a2c3a; /* 이미지 없을 때 배경(파란색) */
+  border: 1px solid rgba(255,255,255,0.10);
+  overflow: hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.thumb img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display:block;
+}
+
+/* 이미지 없을 때 텍스트(“칵테일사진”) */
+.thumb__placeholder{
+  color: rgba(255,255,255,0.9);
+  font-weight: 900;
+  font-size: 28px;
+  letter-spacing: -0.02em;
+}
+
+/* 텍스트 영역: 아래 */
+.info{
+  margin-top: 14px;
+  min-width: 0;
+}
+
+.name{
+  margin: 0;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.base{
+  margin-top: 8px;
+  font-size: 14px;
+  color: rgba(255,255,255,0.8);
+}
+
+/* 기존 재료 미리보기/삭제 버튼/디테일은 숨기거나 재배치 가능 */
+.ingredients{ display:none; }
+.del-btn{ display:none; }     /* 원하면 다시 보이게 할 수 있어 */
+
+/* 원하면 카드 클릭 시 상세로 바꾸는 걸 추천 */
+
+/* Details */
+.details{
+  border-top: 1px solid rgba(0,0,0,0.25);
+}
+.details summary{
+  cursor:pointer;
+  padding: 10px 18px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.85);
+}
+.details summary:hover{ background: rgba(0,0,0,0.12); }
+.details__content{
+  padding: 0 18px 18px;
+}
+.block-title{
+  margin: 12px 0 6px;
+  font-size: 13px;
+  font-weight: 800;
+}
+.pre{
+  white-space: pre-wrap;
+  margin:0;
+  font-size: 13px;
+  color: rgba(255,255,255,0.88);
+}
+.preview{
+  margin-top: 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
+  overflow:hidden;
+}
+.preview img{ display:block; width:100%; height: 170px; object-fit: cover; }
+.time{
+  margin-top: 10px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.55);
+}
+
+/* Empty state */
+.empty{
+  margin-top: 18px;
+  padding: 26px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: #05070a;
+  text-align:center;
+}
+.empty__title{ font-size: 18px; font-weight: 800; }
+.empty__desc{ margin-top: 8px; font-size: 13px; color: var(--muted); }
+
+.hidden{ display:none !important; }
+
+/* Modal */
+.modal{
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding: 16px;
+}
+.modal__backdrop{
+  position:absolute;
+  inset:0;
+  background: rgba(0,0,0,0.70);
+}
+.modal__panel{
+  position:relative;
+  width: min(720px, 100%);
+  background: #0a0a0a;
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 18px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.70);
+  padding: 18px;
+}
+.modal__head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.modal__title{ margin:0; font-size: 18px; font-weight: 900; }
+.modal__subtitle{ margin: 6px 0 0; font-size: 12px; color: var(--muted); }
+.icon-btn{
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(30,30,30,0.7);
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  cursor:pointer;
+}
+.icon-btn:hover{ background: rgba(255,255,255,0.10); }
+
+.form{ display:flex; flex-direction:column; gap: 12px; }
+.field__label{ font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.85); margin-bottom: 6px; }
+.field__input, .field__textarea{
+  width:100%;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: #151515;
+  color: rgba(255,255,255,0.92);
+  padding: 10px 10px;
+  outline:none;
+}
+.field__input:focus, .field__textarea:focus{
+  border-color: rgba(249,115,22,0.8);
+  box-shadow: 0 0 0 3px rgba(249,115,22,0.20);
+}
+.field__textarea{ min-height: 96px; resize: vertical; }
+.row{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+@media (min-width: 768px){
+  .row{ grid-template-columns: 1fr 1fr; }
+}
+
+.actions{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 10px;
+  margin-top: 6px;
+}
+.actions__right{ display:flex; gap: 8px; }
+
+.hint{
+  margin-top: 6px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+}
+
+  /* ===== 제조법 보기(details) 세로 카드용 ===== */
+
+.details{
+  border-top: 1px solid rgba(255,255,255,0.10);
+}
+
+.details summary{
+  cursor: pointer;
+  padding: 12px 18px;
+  font-size: 14px;
+  color: rgba(255,255,255,0.85);
+  list-style: none; /* 기본 마커 제거(브라우저별) */
+}
+
+.details summary:hover{
+  background: rgba(255,255,255,0.05);
+}
+
+/* 커스텀 화살표 */
+.details summary::-webkit-details-marker{ display:none; }
+.details summary::before{
+  content: "▶";
+  display: inline-block;
+  margin-right: 10px;
+  transform-origin: center;
+  transition: transform 160ms ease;
+  opacity: 0.9;
+}
+
+.details[open] summary::before{
+  transform: rotate(90deg);
+}
+
+.details__content{
+  padding: 0 18px 18px;
+}
+
+.block-title{
+  margin: 12px 0 6px;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.pre{
+  white-space: pre-wrap;
+  margin: 0;
+  font-size: 13px;
+  color: rgba(255,255,255,0.88);
+}
