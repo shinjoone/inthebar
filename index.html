@@ -113,7 +113,35 @@
         </form>
       </div>
     </div>
+<script type="module">
+  console.log("Firebase projectId =", firebaseConfig.projectId);
+  // Firestore 모듈
+  // Firebase SDK (모듈)
+ // Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-    <script src="./app.js"></script>
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDcFL63i8mMW22Djd8qE1-VuIa9jmqV2YI",
+  authDomain: "inthebar-4892c.firebaseapp.com",
+  projectId: "inthebar-4892c",
+  storageBucket: "inthebar-4892c.firebasestorage.app",
+  messagingSenderId: "667694151716",
+  appId: "1:667694151716:web:08a603c7097a64b6dcc0b1"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // 전역으로 app.js가 쓰게 내보내기
+  window.__db = db;
+  window.__fs = { collection, addDoc, getDocs, query, orderBy, deleteDoc, doc };
+</script>
+
+<script src="./app.js"></script>
   </body>
 </html>
+
